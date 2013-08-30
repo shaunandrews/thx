@@ -77,22 +77,25 @@ function thx_new_themes() {
 }
 
 function thx_theme_block( $theme, $type = 'installed' ) {
+	$is_active = false;
 	if( $type == 'installed' ) {
 		$screenshot_url = $theme->get_screenshot();
+		if ( $theme->template == thx_get_current_theme() )
+			$is_active = true;
 	} else {
 		$screenshot_url = esc_url( $theme->screenshot_url );
 	}
 	?>
-	<li class="theme<?php if( $theme->slug == thx_get_current_theme() ) echo ' active';?>" id="theme-<?php echo $theme->slug; ?>">
+	<li class="theme<?php if( $is_active ) echo ' active';?>" id="theme-<?php echo $theme->template; ?>">
 		<img class="theme-screenshot" src="<?php echo $screenshot_url; ?>">
 		<h4 class="theme-name"><?php echo $theme->name; ?></h4>
-		<?php if( false ): ?>
+		<?php if( $is_active ): ?>
 			<p class="theme-active">Activated</p>
 		<?php else: ?>
 			<ul class="theme-actions">
 			<?php if($type == 'installed'): ?>
 				<li><a class="button button-secondary" href="#">Activate</a></li>
-				<li><a href="#">Preview</a></li>
+				<li><a href="/wp-admin/customize.php?theme=<?php echo $theme->template; ?>">Preview</a></li>
 				<li><a href="#">x</a></li>
 			<?php else: ?>
 				<li><a href="#">Details</a></li>
