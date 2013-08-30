@@ -58,18 +58,22 @@ function thx_new_themes() {
 
 <h3 class="thx-title">Popular Themes</h3>
 <ol id="popular-themes" class="theme-grid">
-	<?php $featured_themes = themes_api( 'query_themes', array( 'page' => 1, 'per_page' => 4, 'browse' => 'featured' ) ); ?>
+	<?php $i = 0; $featured_themes = themes_api( 'query_themes', array( 'page' => 1, 'per_page' => 4, 'browse' => 'featured' ) ); ?>
 	<?php foreach( $featured_themes->themes as $theme ): ?>
+		<?php if ( $i == 4 ) break; ?>
 		<?php thx_theme_block( $theme, 'popular' ); ?>
+		<?php $i++; ?>
 	<?php endforeach; ?>
 	<li class="more-themes">More Themes</li>
 </ol>
 
 <h3 class="thx-title">Newest Themes</h3>
 <ol id="newest-themes" class="theme-grid">
-	<?php $newest_themes = themes_api( 'query_themes', array( 'per_page' => 4, 'browse' => 'new' ) ); ?>
+	<?php $i = 0; $newest_themes = themes_api( 'query_themes', array( 'per_page' => 4, 'browse' => 'new' ) ); ?>
 	<?php foreach( $newest_themes->themes as $theme ): ?>
+		<?php if ( $i == 4 ) break; ?>
 		<?php thx_theme_block( $theme, 'new' ); ?>
+		<?php $i++; ?>
 	<?php endforeach; ?>
 	<li class="more-themes">More Themes</li>
 </ol>
